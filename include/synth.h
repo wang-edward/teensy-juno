@@ -1,8 +1,5 @@
-#include "architecture.h"
 #include "voice.h"
-#include "global_variables.h"
-#include "parameter.h"
-#include <functional>
+// #include <functional>
 class synth {
     public:
         
@@ -27,19 +24,12 @@ class synth {
             { &pulse_lfo7, &saw7, &sub7, &noise7, &osc_mixer7, &hpf7, &lpf7, &envelope7, -1, 0},
         };
 
-        // #include "update_parameter.h"
-        // #include "list_parameter.h"
-
-
-        void update_master_volume(double value) {
-            // sgtl5000_1.volume(value);
-        }
-
-        double read_master_volume(double value) {
-            return value/127.;
-        }
-        
-        // parameter master_volume(8, 1, 8, read_master_volume, update_master_volume);
+        parameter parameters [4] = {
+            lfo_rate,
+            lfo_delay,
+            osc_lfo_level,
+            master_volume
+        };
 
         void check_all() {
             check_parameters();
@@ -49,9 +39,12 @@ class synth {
         void check_buttons();
 
         void check_parameters() {
-            // for (parameter *p : parameters) {
-            //     p->check();
-            // }
+            for (int i=0;i<4;i++) {
+                parameters[i].check();
+                Serial.print(i); Serial.print(" ");
+                Serial.print(parameters[i].print()); Serial.print(" ");
+                delay(2);
+            }
         }
 };
 

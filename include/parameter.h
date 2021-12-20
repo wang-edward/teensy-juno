@@ -35,7 +35,7 @@ class parameter {
             if (temp != old_position) {
                 old_position = position = temp;
                 value = calculate(position);
-            } else {
+            } else { 
                 return -1;
             }
         };
@@ -44,7 +44,12 @@ class parameter {
             return scaling_function(n_position);
         }
 
-        virtual int read(){
+        int read(){
             return mux_array[mux_address].Mux::read(mux_position);
+        }
+
+        double print () {
+            // return value;
+            return position;
         }
 };
