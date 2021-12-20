@@ -1,0 +1,26 @@
+language: python
+
+cache:
+  directories:
+    - "~/.platformio"
+
+# https://docs.platformio.org/en/latest/core/installation.html
+# https://docs.platformio.org/en/latest/core/userguide/cmd_update.html
+install:
+  - pip install -U platformio
+  - platformio update
+
+# https://docs.platformio.org/en/latest/boards/index.html
+env:
+  - BOARD=uno
+  - BOARD=megaatmega2560
+  - BOARD=nodemcuv2
+  - BOARD=esp-wrover-kit
+  - BOARD=teensy40
+
+# https://docs.platformio.org/en/latest/core/userguide/cmd_ci.html
+script:
+  - set -eo pipefail;
+    for example in examples/*Example; do
+      platformio ci --board=$BOARD --lib=. $example/*.ino.cpp;
+    done
