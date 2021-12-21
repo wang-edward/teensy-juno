@@ -43,7 +43,7 @@ class synth {
                 parameters[i].check();
                 Serial.print(i); Serial.print(" ");
                 Serial.print(parameters[i].print()); Serial.print(" ");
-                delay(2);
+                delay(2);// change delay
             }
         }
 };

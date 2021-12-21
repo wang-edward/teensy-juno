@@ -2,11 +2,15 @@
 // #include "Audio.h"
 #include "architecture.h"
 #include "global_variables.h"
+#include "button.h"
 #include "parameter.h"
+#include "init_button.h"
+#include "init_parameter.h"
 #include "scale_parameter.h"
 #include "update_parameter.h"
 #include "list_parameter.h"
 #include "synth.h"
+
 
 // parameter *master_volume = new parameter(8, 1, 8, &read_master_volume, &update_master_volume);
 

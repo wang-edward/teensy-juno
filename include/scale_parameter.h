@@ -18,6 +18,10 @@ double scale_osc_lfo_level(double value) {
     return (pow((value/127.),2));
 }
 
+double scale_pulse_width(double value) {
+    return (value/127.)*0.9+0.05;
+}
+
 // double scale_pulse_width(double value) {
 //     return (value/127.)*0.9+0.05;
 // }

@@ -18,7 +18,7 @@ class parameter {
 
 
         // parameter(int n_midi_control, int n_mux_address, int n_mux_position, std::function <double (double)> n_scaling_function, std::function<void(double)>n_update_function) {
-        parameter(int n_midi_control, int n_mux_address, int n_mux_position, double (*n_scaling_function)(double), void (*n_update_function)(double)) {
+        void declare (int n_midi_control, int n_mux_address, int n_mux_position, double (*n_scaling_function)(double), void (*n_update_function)(double)) {
             midi_control = n_midi_control;
             mux_position = n_mux_position;
             mux_address = n_mux_address;
@@ -34,17 +34,22 @@ class parameter {
             int temp = read();
             if (temp != old_position) {
                 old_position = position = temp;
-                value = calculate(position);
+                calculate();
+                update();
             } else { 
                 return -1;
             }
         };
 
-        int calculate(int n_position) {
-            return scaling_function(n_position);
+        void calculate() { //fix
+            value = scaling_function(position/1023.);
         }
 
-        int read(){
+        void update() {
+            update_function(value);
+        }
+
+        double read(){
             return mux_array[mux_address].Mux::read(mux_position);
         }
 
