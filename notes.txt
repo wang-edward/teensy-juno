@@ -1,6 +1,6 @@
-pulse - 2,7 - LED1 (34)
-saw - 2,6 - LED2 (35)
-pwm_lfo - 2,8 - LED3 (33)
+pulse - 2,7 - LED1 (33)
+saw - 2,6 - LED2 (34)
+pwm_lfo - 2,8 - LED3 (35)
 
 env_polarity - 2,5 - LED4 (36)
 env_on - 2,4 - LED5 (37)
