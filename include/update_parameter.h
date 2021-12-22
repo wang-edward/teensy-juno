@@ -35,16 +35,22 @@ void update_pulse_width(double value) {
 void update_pwm_lfo_on(bool value) {
     pulse_width.calculate();
     pulse_width.update();
+    
 }
 
-void update_pulse_on() {
+void update_pulse_on(bool value) {
+    if (value) {
+        Serial.println("PULSEON");
+    } else {
+        Serial.println("nooooo");
+    }
+    
+}
+
+void update_saw_on(bool value) {
 
 }
 
-void update_saw_on() {
-
-}
-
-void update_velocity_on() {
+void update_velocity_on(bool value) {
 
 }

@@ -1,16 +1,18 @@
-#include "voice.h"
 // #include <functional>
 class synth {
     public:
         
 
-        long timer = 0;
+        long last_time = 0;
         const int debounce_time = 5; //amount of time between checks, not total time
 
         double sum_lpf;
         double max_lpf_mod;
         double lpf_octave;
 
+        synth (){
+            // last_time = 0;
+        }
         
         static const int number_voices = 8;
         voice voices[number_voices] = {
@@ -31,12 +33,27 @@ class synth {
             master_volume
         };
 
+        button buttons [1] = {
+            pulse_on
+        };
+
         void check_all() {
             check_parameters();
             check_buttons();
         }
 
-        void check_buttons();
+
+        void check_buttons() {
+            long current_time = millis();
+            if (current_time - last_time > debounce_time) {
+                last_time = current_time;
+                for (button b : buttons) {
+                    b.check();
+                }
+            } else {
+                
+            }
+        }
 
         void check_parameters() {
             for (int i=0;i<4;i++) {
