@@ -1,0 +1,14 @@
+pulse - 2,7 - LED1 (34)
+saw - 2,6 - LED2 (35)
+pwm_lfo - 2,8 - LED3 (33)
+
+env_polarity - 2,5 - LED4 (36)
+env_on - 2,4 - LED5 (37)
+flanger_on - 2,3 - LED6 (38)
+
+velocity_on - 2,2 - LED7 (39)
+write - 2,1 - LED8 (40)
+notes_off/reset - 2,0 - LED9 (41)
+
+
+use poly pot for portamento instead of button
