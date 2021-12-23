@@ -21,13 +21,18 @@ midi control numbers for buttons
 connected
 when n is pressed, it results in:
 
+8: 8, 0
 7: 7, 8
 6: 6, 7, 8
-8: 8 & 0
+<- (where 8 should be)
 
+5: 5, 6
+4: 4, 5, 6, 8
+3: 3, 4
 
-
-
+2: 2, 3, 4
+1: 1, 2
+0: 0, 1, 2, 4, 8
 
 8 & 9
 7 & 8 (and thus 9)

@@ -46,17 +46,17 @@ class synth {
 
 
         void check_buttons() {
-            // long current_time = millis();
+            long current_time = millis();
             // Serial.println(current_time - last_time);
-            // if (current_time - last_time > debounce_time) {
-                // last_time = current_time;
+            if (current_time - last_time > debounce_time) {
+                last_time = current_time;
                 for (button b : buttons) {
                     b.check();
-                    delay(200);
+
                 }
-            // } else {
+            } else {
                 
-            // }
+            }
             
         }
 

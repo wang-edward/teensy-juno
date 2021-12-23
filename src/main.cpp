@@ -50,7 +50,22 @@ void loop() {
 // Serial.println(temp_time);
   // if (temp_time - last_time > 5) {
   //   last_time = temp_time;
-    s.check_buttons();
+    // s.check_buttons();
+
+    pulse_on.check();
+    saw_on.check();
+    pwm_lfo_on.check();
+
+    envelope_polarity.check();
+    envelope_on.check();
+    flanger_on.check();
+
+    velocity_on.check();
+    write.check();
+    reset.check();
+    
+
+
     // for (int i=0;i<9;i++) {
     //   Serial.print(i); Serial.print(": "); Serial.println(mux_array[2].Mux::read(i));
     // }
