@@ -52,18 +52,53 @@ void loop() {
   //   last_time = temp_time;
     // s.check_buttons();
 
+    // button test[9] = {
+    //   pulse_on,
+    //   saw_on,
+    //   pwm_lfo_on,
+    //   envelope_polarity,
+    //   envelope_on,
+    //   flanger_on,
+    //   velocity_on,
+    //   write,
+    //   reset
+    // };
+
+    // int starts[9];
+    // int ends[9];
+
+    // for (int i=0;i<9;i++) {
+    //   int temp = test[i].check();
+    //   if (temp ==1) {
+    //     starts[i] = 1;
+    //   } else if (temp==2) {
+    //     ends[i] = 2;
+    //   }
+    //   delay(2);
+    // }
+
+    
+
     pulse_on.check();
+    delay(1);
     saw_on.check();
+    delay(1);
     pwm_lfo_on.check();
+    delay(1);
 
     envelope_polarity.check();
+    delay(1);
     envelope_on.check();
+    delay(1);
     flanger_on.check();
-
-    velocity_on.check();
-    write.check();
-    reset.check();
+    delay(1);
     
+    velocity_on.check();
+    delay(1);
+    write.check();
+    delay(1);
+    reset.check();
+    delay(1);
 
 
     // for (int i=0;i<9;i++) {

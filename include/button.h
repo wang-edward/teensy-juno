@@ -68,7 +68,7 @@ class button {
 
         int count =0 ;
 
-        void check() {
+        int check() {
             bool end = end_debounce();
             bool start = start_debounce();
 
@@ -78,6 +78,7 @@ class button {
             if (start) {
                 Serial.println("start");
                 start_time = millis();
+                return 1;
             }
             
             if (end) {
@@ -90,6 +91,7 @@ class button {
                 update_led();
                 update_function(state);
                 count++;
+                return 2;
             }
 
 
@@ -97,6 +99,8 @@ class button {
             if (millis() - start_time > 500) {
                 //TODO: second update function
             }
+
+            return 0;
 
 
 

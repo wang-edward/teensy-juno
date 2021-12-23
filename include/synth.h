@@ -33,10 +33,16 @@ class synth {
             master_volume
         };
 
-        button buttons [3] = {
+        button buttons [9] = {
             pulse_on,
             saw_on,
-            pwm_lfo_on
+            pwm_lfo_on,
+            envelope_polarity,
+            envelope_on,
+            flanger_on,
+            velocity_on,
+            write,
+            reset
         };
 
         void check_all() {
