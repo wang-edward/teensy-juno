@@ -12,3 +12,22 @@ notes_off/reset - 2,0 - LED9 (41)
 
 
 use poly pot for portamento instead of button
+
+
+TODO:
+midi control numbers for buttons
+2nd update function for buttons
+
+connected
+when n is pressed, it results in:
+
+7: 7, 8
+6: 6, 7, 8
+8: 8 & 0
+
+
+
+
+
+8 & 9
+7 & 8 (and thus 9)

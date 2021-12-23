@@ -33,8 +33,10 @@ class synth {
             master_volume
         };
 
-        button buttons [1] = {
-            pulse_on
+        button buttons [3] = {
+            pulse_on,
+            saw_on,
+            pwm_lfo_on
         };
 
         void check_all() {
@@ -44,15 +46,18 @@ class synth {
 
 
         void check_buttons() {
-            long current_time = millis();
-            if (current_time - last_time > debounce_time) {
-                last_time = current_time;
+            // long current_time = millis();
+            // Serial.println(current_time - last_time);
+            // if (current_time - last_time > debounce_time) {
+                // last_time = current_time;
                 for (button b : buttons) {
                     b.check();
+                    delay(200);
                 }
-            } else {
+            // } else {
                 
-            }
+            // }
+            
         }
 
         void check_parameters() {
@@ -61,6 +66,13 @@ class synth {
                 Serial.print(i); Serial.print(" ");
                 Serial.print(parameters[i].print()); Serial.print(" ");
                 delay(2);// change delay
+            }
+        }
+
+        void debug() {
+            for (button b : buttons) {
+                Serial.println(b.read_raw());
+                delay(100);
             }
         }
 };

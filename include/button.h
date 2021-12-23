@@ -35,7 +35,6 @@ class button {
         }
 
         void update_led() {
-            Serial.print("update led with "); Serial.println(state);
             if (state) {
                 digitalWrite(led_address, HIGH);
             } else {
@@ -45,28 +44,23 @@ class button {
 
         bool read_raw() {
             int temp = mux_array[mux_address].Mux::read(mux_position);
-            // Serial.println(temp);
-            if (temp>300) {
+            return temp;
+            if (temp==1) {
                 return true;
             } 
-            // Serial.println("down");
             return false;
             
         }
         bool start_debounce() {
-            // start_state = 0;
             start_state = (start_state<<1) | read_raw() | 0xe000;
             if (start_state == 0xf000) {
-                Serial.println("start true");
                 return true;
             }
             return false;
         }
         bool end_debounce() {
-            // end_state = 0; // Current debounce status
             end_state=(end_state<<1) | !read_raw() | 0xe000;
             if(end_state==0xf000) {
-                Serial.println("end true");
                 return true;
             }
             return false;
@@ -75,12 +69,11 @@ class button {
         int count =0 ;
 
         void check() {
-            // Serial.print("in ");
             bool end = end_debounce();
             bool start = start_debounce();
 
-            Serial.print("start state:");Serial.println(start_state,BIN);
-            Serial.print("end state:  ");Serial.println(end_state,BIN);
+            // Serial.print("start state:");Serial.println(start_state,BIN);
+            // Serial.print("end state:  ");Serial.println(end_state,BIN);
             
             if (start) {
                 Serial.println("start");
@@ -99,7 +92,6 @@ class button {
                 count++;
             }
 
-            // Serial.println(count);
 
             //long press
             if (millis() - start_time > 500) {
@@ -108,7 +100,6 @@ class button {
 
 
 
-            // Serial.println(state);
             // state = debounce();
             // if (state == true && !last_state == false) {
             //     update_function(true);
