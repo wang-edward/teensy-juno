@@ -18,14 +18,31 @@
 //
 #include "synth.h"
 
+#include <iostream>
 
+void setup() {
+    declare_parameters();
+    declare_buttons();
+    Serial.begin(9600);
 
+}
 
-// parameter *master_volume = new parameter(8, 1, 8, &read_master_volume, &update_master_volume);
+void timer () {
+  // Serial.println(temp_time);
+  // if (temp_time - last_time > 5) {
+  //   last_time = temp_time;
+  //   s.check_buttons();
+  // }
+}
 
-// parameter parameters[1] = {
-//   master_volume
-// };
+synth s;
+
+void loop() {
+
+    s.check_parameters();
+
+}  
+
 static button test[9] = {
       pulse_on,
       saw_on,
@@ -42,48 +59,10 @@ static button test[9] = {
     static int ends[9];
     static int abc[9];
 
-void test_circuit () {
-  // for (int i=0;i<9;i++) {
-  //   int temp = test[i].check();
-  //   Serial.print(i); Serial.print(": "); Serial.println(temp);
-  //   if (temp ==1) {
-  //     starts[i] = 1;
-  //   } else if (temp==2) {
-  //     ends[i] = 1;
-  //   }
-  //   delay(1);
-  // }
-
-  // for (int i=0;i<9;i++) {
-  //     if (ends[i] == 1) {
-  //       test[i].state = !test[i].state;
-  //       test[i].update_led();
-  //     }
-  //   }
-}
-
-#include <iostream>
-synth s;
-void setup() {
-    declare_parameters();
-    declare_buttons();
-    Serial.begin(9600);
-
-}
-
-void timer () {
-  // Serial.println(temp_time);
-  // if (temp_time - last_time > 5) {
-  //   last_time = temp_time;
-  //   s.check_buttons();
-  // }
-}
-
 static bool es[9];
 
-void loop() {
-
-    abc[7] = pulse_on.simple_check();
+void test_circuit () {
+  abc[7] = pulse_on.simple_check();
     delay(1);
     abc[6] = saw_on.simple_check();
     delay(1);
@@ -164,6 +143,4 @@ void loop() {
     for (int i=0;i<9;i++) {
       es[i] = false;
     }
-
-
-}  
+}

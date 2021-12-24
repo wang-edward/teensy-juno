@@ -4,7 +4,9 @@ class synth {
         
 
         long last_time = 0;
-        const int debounce_time = 5; //amount of time between checks, not total time
+        static const int debounce_time = 5; //amount of time between checks, not total time
+        static const int number_parameters = 4;
+        static const int number_buttons = 9;
 
         double sum_lpf;
         double max_lpf_mod;
@@ -26,23 +28,23 @@ class synth {
             { &pulse_lfo7, &saw7, &sub7, &noise7, &osc_mixer7, &hpf7, &lpf7, &envelope7, -1, 0},
         };
 
-        parameter parameters [4] = {
-            lfo_rate,
-            lfo_delay,
-            osc_lfo_level,
-            master_volume
+        parameter* parameters [number_parameters] = {
+            &lfo_rate,
+            &lfo_delay,
+            &osc_lfo_level,
+            &master_volume
         };
 
-        button buttons [9] = {
-            pulse_on,
-            saw_on,
-            pwm_lfo_on,
-            envelope_polarity,
-            envelope_on,
-            flanger_on,
-            velocity_on,
-            write,
-            reset
+        button* buttons [number_buttons] = {
+            &pulse_on,
+            &saw_on,
+            &pwm_lfo_on,
+            &envelope_polarity,
+            &envelope_on,
+            &flanger_on,
+            &velocity_on,
+            &write,
+            &reset
         };
 
         void check_all() {
@@ -56,9 +58,8 @@ class synth {
             // Serial.println(current_time - last_time);
             if (current_time - last_time > debounce_time) {
                 last_time = current_time;
-                for (button b : buttons) {
-                    b.check();
-
+                for (int i=0;i<number_buttons;i++) {
+                    buttons[i]->check();
                 }
             } else {
                 
@@ -67,17 +68,24 @@ class synth {
         }
 
         void check_parameters() {
-            for (int i=0;i<4;i++) {
-                parameters[i].check();
-                Serial.print(i); Serial.print(" ");
-                Serial.print(parameters[i].print()); Serial.print(" ");
-                delay(2);// change delay
+            int i=0;
+            while (i<number_parameters) {
+                long current_time = millis();
+                if (current_time - last_time > 5) {
+                    last_time = current_time;
+                    i++;
+                    parameters[i]->check();
+
+                    Serial.print(i); Serial.print(" ");
+                    Serial.print(parameters[i]->get_position()); Serial.print(" ");
+                }
             }
+
         }
 
         void debug() {
-            for (button b : buttons) {
-                Serial.println(b.read_raw());
+            for (int i=0;i<number_buttons;i++) {
+                Serial.println(buttons[i]->read_raw());
                 delay(100);
             }
         }

@@ -64,7 +64,7 @@ class parameter {
             return mux_array[mux_address].Mux::read(mux_position);
         }
 
-        double print () {
+        double get_position () {
             // return value;
             return position;
         }
