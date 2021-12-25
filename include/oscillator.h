@@ -1,5 +1,5 @@
 #include <Audio.h>
-class voice {
+class oscillator {
     public:
         AudioSynthWaveformModulated*  pulse_lfo;
         AudioSynthWaveformModulated*  saw;

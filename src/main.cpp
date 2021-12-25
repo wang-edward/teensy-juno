@@ -5,7 +5,7 @@
 //classes
 #include "button.h"
 #include "parameter.h"
-#include "voice.h"
+#include "oscillator.h"
 //init controls
 #include "init_button.h"
 #include "init_parameter.h"
@@ -17,6 +17,10 @@
 #include "declare_button.h"
 //
 #include "synth.h"
+
+#include "engine/note_handle.h"
+#include "engine/oscillator_control.h"
+#include "engine/midi_handle.h"
 
 #include <iostream>
 
@@ -39,7 +43,8 @@ synth s;
 
 void loop() {
 
-    s.check_parameters();
+    // s.check_parameters();
+    test1();
 
 }  
 
