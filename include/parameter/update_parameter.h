@@ -65,6 +65,57 @@ void update_lpf_resonance (double value) {
     } while (++o < end);
 }
 
+void update_envelope_attack(double value) {
+    lpf_envelope.attack(value); //lpf envelope
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->envelope->attack(value);
+    } while (++o < end);
+}
+
+void update_envelope_decay(double value) {
+    lpf_envelope.decay(value); //lpf envelope
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->envelope->decay(value);
+    } while (++o < end);
+}
+
+void update_envelope_sustain(double value) {
+    lpf_envelope.sustain(value); //lpf envelope
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->envelope->sustain(value);
+    } while (++o < end);
+}
+
+void update_envelope_release(double value) {
+    lpf_envelope.release(value); //lpf envelope
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->envelope->release(value);
+    } while (++o < end);
+}
+
+void update_flanger (double value) {
+    if (flanger_on.state) {
+        AudioNoInterrupts();
+        flanger_left.voices(
+            flanger_offset.get_value(), 
+            flanger_depth.get_value(), 
+            (flanger_frequency.get_value() + flanger_frequency_fine.get_value()) //add frequencies
+        );
+        flanger_right.voices(
+            flanger_offset.get_value(), 
+            flanger_depth.get_value(), 
+            (flanger_frequency.get_value() + flanger_frequency_fine.get_value()) //add frequencies
+        );
+        AudioInterrupts();
+    } else {
+        flanger_left.voices(FLANGE_DELAY_PASSTHRU, 0, 0);
+        flanger_right.voices(FLANGE_DELAY_PASSTHRU, 0, 0);
+    }
+}
 
 void update_master_volume(double value) {
     sgtl5000_1.volume(value);
