@@ -6,6 +6,12 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
 
     if (osc.note != note) {
         notes_add(notes_on, note);
+
+        if(envelope_on.state && !osc.velocity) {
+            osc.envelope->noteOn();
+        }
+
+        // if (lpf)
     }
 
 }

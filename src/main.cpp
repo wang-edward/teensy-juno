@@ -3,18 +3,19 @@
 #include "architecture.h"
 #include "global_variables.h"
 //classes
-#include "button.h"
-#include "parameter.h"
+#include "button/button.h"
+#include "parameter/parameter.h"
 #include "oscillator.h"
 //init controls
-#include "init_button.h"
-#include "init_parameter.h"
+#include "button/init_button.h"
+#include "parameter/init_parameter.h"
 //control functions
-#include "scale_parameter.h"
-#include "update_parameter.h"
+#include "parameter/scale_parameter.h"
+#include "button/update_button.h"
+#include "parameter/update_parameter.h"
 //declare controls
-#include "declare_parameter.h"
-#include "declare_button.h"
+#include "button/declare_button.h"
+#include "parameter/declare_parameter.h"
 //
 #include "synth.h"
 

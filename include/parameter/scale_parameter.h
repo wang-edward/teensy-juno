@@ -2,6 +2,11 @@
 #include <math.h>
 #include <algorithm>
 
+//TODO: SPECIAL (FOR OSC CONTROL)
+double scale_velocity (double value) {
+    return value/127;
+}
+
 double scale_master_volume (double value) {
     return value/127.;
 }
@@ -22,39 +27,83 @@ double scale_pulse_width(double value) {
     return (value/127.)*0.9+0.05;
 }
 
-// double scale_pulse_width(double value) {
-//     return (value/127.)*0.9+0.05;
-// }
+double scale_pulse_width(double value) {
+    return (value/127.)*0.9+0.05;
+}
 
-// //scale sub level 
-// double scale_sub_level(double value) {
-//     return value/127.;
-// }
+//scale sub level 
+double scale_sub_level(double value) {
+    return value/127.;
+}
 
-// //scale noise level
-// double scale_noise_level(double value) {
-//     return std::max(0.01,value/127.);
-// }
+//scale noise level
+double scale_noise_level(double value) {
+    return std::max(0.01,value/127.);
+}
 
-// double scale_hpf_frequency(double value) {
-//     return pow(value,2);
-// }
+double scale_hpf_frequency(double value) {
+    return pow(value,2);
+}
 
-// double scale_lpf_frequency(double value) {
-//     return std::min(pow(value,2), 10000);
-// }
+double scale_lpf_frequency(double value) {
+    return std::min(pow(value,2), 10000.);
+}
 
-// double scale_lpf_resonance(double value) {
-//     return value*4.1/127.+0.9;
-// }
+double scale_lpf_resonance(double value) {
+    return value*4.1/127.+0.9;
+}
 
-// double scale_sum_lpf() {
+double scale_sum_lpf() {
+    //TODO
+}
 
-// }
+double scale_lpf_env_level (double value) {
+    return (value/127.) * 2;
+}
 
-// double scale_lpf_env_level (double vvalue) {
+double scale_lpf_lfo_level (double value) {
+    return (value/127.) * 2;
+}
 
-// }
+double scale_lpf_keyboard_level (double value) {
+    return (value/127.) * 2;
+}
+
+double scale_channel_volume (double value) {
+    return value/127.;
+}
+
+double scale_flanger_offset(double value) {
+    return double(value/127.*8)*DELAY_LENGTH/8;
+}
+
+double scale_flanger_depth (double value) {
+    return double(value/127.*8)*DELAY_LENGTH/8;
+}
+
+double scale_flanger_frequency(double value) {
+    return value/127.*10.; //TODO: exponential scale?
+}
+
+double scale_flanger_frequency(double value) {
+    return value/127.;
+}
+
+double scale_envelope_attack(double value) {
+    return 1000 * (pow((value/127.),2));
+}
+
+double scale_envelope_decay(double value) {
+    return value*200./127.;
+}
+
+double scale_envelope_sustain (double value) {
+    return value/127.;
+}
+
+double scale_envelope_release (double value) {
+    return 1000 * (pow((value/127.),2));
+}
 
 // parameter lfo_rate (101, 0, 0, [](double value) -> double {
 //     return 30 * (pow((value/127.),2));
