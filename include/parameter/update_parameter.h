@@ -44,9 +44,26 @@ void update_noise_level (double value) {
     }
 }
 
-// void update_hpf_frequency (double value) {
+void update_hpf_frequency (double value) {
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->hpf->frequency(value);
+    } while (++o < end);
+}
 
-// }
+void update_lpf_frequency (double value) {
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->lpf->frequency(value);
+    } while (++o < end);
+}
+
+void update_lpf_resonance (double value) {
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->lpf->resonance(value);
+    } while (++o < end);
+}
 
 
 void update_master_volume(double value) {
