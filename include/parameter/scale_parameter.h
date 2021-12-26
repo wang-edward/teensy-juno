@@ -54,7 +54,7 @@ double scale_sum_lpf() {
     //TODO
 }
 
-double scale_lpf_env_level (double value) {
+double scale_lpf_envelope_level (double value) {
     return (value/127.) * 2;
 }
 

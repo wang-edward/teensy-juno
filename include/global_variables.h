@@ -8,6 +8,8 @@ Mux mux_array[] = {
     Mux(Pin(26, INPUT_PULLUP, PinType::Digital),Pinset(29,30,31,32))
 };
 
+const int lpf_octave_control = 7;
+
 const int number_parameters = 22;
 const int number_voices = 8;
 const int number_buttons = 9;
