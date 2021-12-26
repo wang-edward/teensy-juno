@@ -1,11 +1,12 @@
 #include <Arduino.h>
 // #include "Audio.h"
 #include "architecture.h"
+#include "oscillator.h"
 #include "global_variables.h"
 //classes
 #include "button/button.h"
 #include "parameter/parameter.h"
-#include "oscillator.h"
+
 //init controls
 #include "button/init_button.h"
 #include "parameter/init_parameter.h"

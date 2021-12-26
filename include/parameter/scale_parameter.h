@@ -23,9 +23,6 @@ double scale_osc_lfo_level(double value) {
     return (pow((value/127.),2));
 }
 
-double scale_pulse_width(double value) {
-    return (value/127.)*0.9+0.05;
-}
 
 double scale_pulse_width(double value) {
     return (value/127.)*0.9+0.05;
@@ -38,7 +35,7 @@ double scale_sub_level(double value) {
 
 //scale noise level
 double scale_noise_level(double value) {
-    return std::max(0.01,value/127.);
+    return std::max((double)(0.01),value/127.);
 }
 
 double scale_hpf_frequency(double value) {
@@ -46,7 +43,7 @@ double scale_hpf_frequency(double value) {
 }
 
 double scale_lpf_frequency(double value) {
-    return std::min(pow(value,2), 10000.);
+    return std::min(pow(value,2), (double)(10000.));
 }
 
 double scale_lpf_resonance(double value) {
@@ -85,7 +82,7 @@ double scale_flanger_frequency(double value) {
     return value/127.*10.; //TODO: exponential scale?
 }
 
-double scale_flanger_frequency(double value) {
+double scale_flanger_frequency_fine(double value) {
     return value/127.;
 }
 

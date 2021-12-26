@@ -41,15 +41,14 @@ class parameter {
             old_position = position = read();
         }
 
-        int check() {
+        double get_value() {
             int temp = read();
             if (temp != old_position) {
                 old_position = position = temp;
                 calculate();
                 update();
-            } else { 
-                return -1;
             }
+            return value;
         };
 
         void calculate() { //fix
@@ -62,10 +61,5 @@ class parameter {
 
         double read(){
             return mux_array[mux_address].Mux::read(mux_position);
-        }
-
-        double get_position () {
-            // return value;
-            return position;
         }
 };

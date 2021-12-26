@@ -76,7 +76,7 @@ class button {
             return 0;
         }
 
-        void check() {
+        bool get_state() {
             bool end = end_debounce();
             bool start = start_debounce();
 
@@ -101,15 +101,12 @@ class button {
                 count++;
                 
             }
-
-
             //long press
             if (millis() - start_time > 500) {
                 //TODO: second update function
             }
 
-
-
+            return state;
 
             // state = debounce();
             // if (state == true && !last_state == false) {

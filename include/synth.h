@@ -47,7 +47,7 @@ class synth {
             if (current_time - last_time > debounce_time) {
                 last_time = current_time;
                 for (int i=0;i<number_buttons;i++) {
-                    buttons[i]->check();
+                    buttons[i]->get_state();
                 }
             } else {
                 
@@ -62,10 +62,9 @@ class synth {
                 if (current_time - last_time > 5) {
                     last_time = current_time;
                     i++;
-                    parameters[i]->check();
+                    parameters[i]->get_value();
 
                     Serial.print(i); Serial.print(" ");
-                    Serial.print(parameters[i]->get_position()); Serial.print(" ");
                 }
             }
 

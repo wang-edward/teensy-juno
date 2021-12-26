@@ -5,7 +5,7 @@ int8_t notes_on[number_voices]      = { -1, -1, -1, -1, -1, -1, -1, -1, };
 int8_t notes_pressed[number_voices] = { -1, -1, -1, -1, -1, -1, -1, -1, };
 
 void notes_reset(int8_t* notes) {
-    memset(notes,-1,number_voices * size_of(int8_t));
+    memset(notes,-1,number_voices * sizeof(int8_t));
 }
 
 void notes_add(int8_t* notes, uint8_t note) {

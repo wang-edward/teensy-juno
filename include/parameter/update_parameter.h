@@ -27,7 +27,7 @@ void update_sub_level (double value) {
         do {
             if (o->note < 0) continue;
             velocity = velocity_on.state ? scale_velocity(o->velocity) : 1;
-            o->sub->amplitude(velocity * channel_volume.value * value);
+            o->sub->amplitude(velocity * channel_volume.get_value() * value);
         } while (++o < end);
     }
 }
@@ -36,11 +36,17 @@ void update_noise_level (double value) {
     if (value > 0) {
         oscillator *o = oscillators, *end = oscillators + number_voices;
         float velocity;
-        if (o->note < 0) continue;
-        velocity = velocity_on.state ? scale_velocty(o->velocity) : 1;
-        
+        do {
+            if (o->note < 0) continue;
+            velocity = velocity_on.state ? scale_velocity(o->velocity) : 1;  
+            o->noise->amplitude(velocity * channel_volume.get_value() * value);
+        } while (++o < end);
     }
 }
+
+// void update_hpf_frequency (double value) {
+
+// }
 
 
 void update_master_volume(double value) {
