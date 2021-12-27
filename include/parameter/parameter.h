@@ -1,7 +1,7 @@
 #include <functional>
 
 class parameter {
-    public:
+    private:
         int midi_control; // midi control number (0-127);
         double value; //calculated value
         int position; // physical position of potentiometer (0-1023)
@@ -9,12 +9,10 @@ class parameter {
 
         int mux_position; // which pin of the mux to read (0-15)
         int mux_address; // which mux to search in (0-2)
-
-        // std::function <double (double)>* scaling_function; //function to convert raw value into useable
-        // std::function <void (double)>* update_function; //function to update synth engine with new parameter
-
-        double (*scaling_function)(double);
-        void (*update_function)(double);
+        
+    public:
+        double (*scaling_function)(double); // function to convert raw value into useable
+        void (*update_function)(double); // function to update synth engine with new parameter
 
         parameter () {
             position = -1;

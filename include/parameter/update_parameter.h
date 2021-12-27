@@ -19,7 +19,7 @@ void update_osc_lfo_level(double value) {
 
 // OSCILLATORS
 void update_pulse_width(double value) {
-    if (pwm_lfo_on.state == true) {
+    if (pwm_lfo_on.get_state() == true) {
         oscillator *o = oscillators, *end = oscillators + number_voices;
         do {
             o->pwm_mixer->gain(0,value); //set lfo pwm level
@@ -41,7 +41,7 @@ void update_sub_level (double value) {
         float velocity;
         do {
             if (o->note < 0) continue;
-            velocity = velocity_on.state ? scale_velocity(o->velocity) : 1;
+            velocity = velocity_on.get_state() ? scale_velocity(o->velocity) : 1;
             o->sub->amplitude(velocity * channel_volume.get_value() * value);
         } while (++o < end);
     }
@@ -53,7 +53,7 @@ void update_noise_level (double value) {
         float velocity;
         do {
             if (o->note < 0) continue;
-            velocity = velocity_on.state ? scale_velocity(o->velocity) : 1;  
+            velocity = velocity_on.get_state() ? scale_velocity(o->velocity) : 1;  
             o->noise->amplitude(velocity * channel_volume.get_value() * value);
         } while (++o < end);
     }
@@ -103,34 +103,64 @@ void update_lpf_mod (double value) {
 // ENVELOPE
 void update_envelope_attack(double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
-    do {
-        o->lpf_envelope->attack(value); //lpf envelope
-        o->envelope->attack(value);
-    } while (++o < end);
+    if (envelope_on.get_state() == true) {
+        do {
+            o->lpf_envelope->attack(value); //lpf envelope
+            o->envelope->attack(value);
+        } while (++o < end);
+    } else {
+        do {
+            o->lpf_envelope->attack(0.); //lpf envelope
+            o->envelope->attack(0.);
+        } while (++o < end);
+    }
 }
 
 void update_envelope_decay(double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
-    do {
-        o->lpf_envelope->decay(value); //lpf envelope
-        o->envelope->decay(value);
-    } while (++o < end);
+    if (envelope_on.get_state() == true) {
+        do {
+            o->lpf_envelope->decay(value); //lpf envelope
+            o->envelope->decay(value);
+        } while (++o < end);
+    } else {
+        do {
+            o->lpf_envelope->decay(0.); //lpf envelope
+            o->envelope->decay(0.);
+        } while (++o < end);
+    }
 }
 
 void update_envelope_sustain(double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
-    do {
-        o->lpf_envelope->sustain(value); //lpf envelope
-        o->envelope->sustain(value);
-    } while (++o < end);
+    if (envelope_on.get_state() == true) {
+        do {
+            o->lpf_envelope->sustain(value); //lpf envelope
+            o->envelope->sustain(value);
+        } while (++o < end);
+    } else {
+        do {
+            o->lpf_envelope->sustain(1.); //lpf envelope
+            o->envelope->sustain(1.);
+        } while (++o < end);
+    }
+    
 }
 
 void update_envelope_release(double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
-    do {
-        o->lpf_envelope->release(value); //lpf envelope
-        o->envelope->release(value);
-    } while (++o < end);
+    if (envelope_on.get_state() == true) {
+        do {
+            o->lpf_envelope->release(value); //lpf envelope
+            o->envelope->release(value);
+        } while (++o < end);
+    } else {
+        do {
+            o->lpf_envelope->release(0.); //lpf envelope
+            o->envelope->release(0.);
+        } while (++o < end);
+    }
+    
 }
 
 // CHANNEL VOLUME
@@ -140,7 +170,7 @@ void update_channel_volume (double value) {
 
 // FLANGER
 void update_flanger (double value) {
-    if (flanger_on.state) {
+    if (flanger_on.get_state()) {
         AudioNoInterrupts();
         flanger_left.voices(
             flanger_offset.get_value(), 
