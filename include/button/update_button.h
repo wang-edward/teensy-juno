@@ -1,9 +1,5 @@
 void update_pulse_on(bool value) {
-    if (value) {
-        Serial.println("PULSEON");
-    } else {
-        Serial.println("PULSEOFF");
-    }
+    
     
 }
 
