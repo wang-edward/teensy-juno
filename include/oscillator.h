@@ -10,10 +10,11 @@ class oscillator {
         
         AudioFilterStateVariable*     hpf;
         AudioFilterLadder*            lpf;
-        
+
         AudioMixer4*                  lpf_mod_mixer;
         AudioEffectEnvelope*          lpf_envelope;
         AudioEffectEnvelope*          lfo_envelope;
+        AudioAmplifier*               osc_lfo_amp;
 
         AudioEffectEnvelope*          envelope;
         

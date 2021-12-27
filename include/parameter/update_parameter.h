@@ -4,21 +4,34 @@ void update_lfo_rate(double value) {
 }
 
 void update_lfo_delay(double value) {
-    lfo_envelope.delay(value);
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->lfo_envelope->delay(value);
+    } while (++o < end);
 }
 
 void update_osc_lfo_level(double value) {
-    osc_lfo_amp.gain(value);
+    oscillator *o = oscillators, *end = oscillators + number_voices;
+    do {
+        o->osc_lfo_amp->gain(value);
+    } while (++o < end);
 }
 
 // OSCILLATORS
 void update_pulse_width(double value) {
     if (pwm_lfo_on.state == true) {
-        pwm_mixer.gain(0,value); //set lfo pwm level
-        pwm_mixer.gain(1,0); //turn off manual pwm
+        oscillator *o = oscillators, *end = oscillators + number_voices;
+        do {
+            o->pwm_mixer->gain(0,value); //set lfo pwm level
+            o->pwm_mixer->gain(1,0); //turn off manual pwm
+        } while (++o < end);
+        
     } else {
-        pwm_mixer.gain(1,value); //set manual pwm level
-        pwm_mixer.gain(0,0); // turn off lfo pwm
+        oscillator *o = oscillators, *end = oscillators + number_voices;
+        do {
+            o->pwm_mixer->gain(1,value); //set lfo pwm level
+            o->pwm_mixer->gain(0,0); //turn off manual pwm
+        } while (++o < end);
     }
 }
 
@@ -78,45 +91,46 @@ void update_lpf_mod (double value) {
     double lpf_lfo_gain = lpf_lfo_level.get_value() / sum_lpf_levels * max_lpf_mod;
     double lpf_keyboard_gain = lpf_envelope_level.get_value() / sum_lpf_levels * max_lpf_mod;
     
+    oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
-        oscillator *o = oscillators, *end = oscillators + number_voices;
+        o->lpf_mod_mixer->gain(0, lpf_envelope_gain);
+        o->lpf_mod_mixer->gain(1, lpf_lfo_gain);
+        o->lpf_mod_mixer->gain(2, lpf_keyboard_gain);
     } while (++o < end);
-    lpf_mod_mixer.gain(0, lpf_envelope_gain);
-    lpf_mod_mixer.gain(1, lpf_lfo_gain);
-    lpf_mod_mixer.gain(2, lpf_keyboard_gain);
+    
 
 
 }
 
 // ENVELOPE
 void update_envelope_attack(double value) {
-    lpf_envelope.attack(value); //lpf envelope
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
+        o->lpf_envelope->attack(value); //lpf envelope
         o->envelope->attack(value);
     } while (++o < end);
 }
 
 void update_envelope_decay(double value) {
-    lpf_envelope.decay(value); //lpf envelope
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
+        o->lpf_envelope->decay(value); //lpf envelope
         o->envelope->decay(value);
     } while (++o < end);
 }
 
 void update_envelope_sustain(double value) {
-    lpf_envelope.sustain(value); //lpf envelope
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
+        o->lpf_envelope->sustain(value); //lpf envelope
         o->envelope->sustain(value);
     } while (++o < end);
 }
 
 void update_envelope_release(double value) {
-    lpf_envelope.release(value); //lpf envelope
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
+        o->lpf_envelope->release(value); //lpf envelope
         o->envelope->release(value);
     } while (++o < end);
 }

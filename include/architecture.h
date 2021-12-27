@@ -122,11 +122,9 @@ AudioMixer4              mixer_right;    //xy=1855.2833251953125,1261
 AudioEffectFlange        flanger_left;   //xy=2028.2833251953125,1113
 AudioEffectFlange        flanger_right;  //xy=2033.2833251953125,1238
 AudioAnalyzePeak         peak;           //xy=2052.2833251953125,589
-AudioFilterStateVariable filter1;        //xy=2263.1666717529297,1122.1666717529297
-AudioFilterStateVariable filter2;  //xy=2263.166748046875,1236.1666259765625
-AudioFilterStateVariable filter2;        //xy=2467.1666717529297,1128.1666717529297
-AudioFilterStateVariable filter3;        //xy=2479.1666717529297,1245.1666717529297
-AudioOutputI2S           i2s1;           //xy=2652.283203125,1177
+AudioFilterStateVariable antialias_left;        //xy=2265.166748046875,1111.1665649414062
+AudioFilterStateVariable antialias_right;        //xy=2277.166748046875,1228.1665649414062
+AudioOutputI2S           i2s1;           //xy=2450.2832794189453,1159.9998931884766
 AudioConnection          patchCord1(lfo, lfo_envelope0);
 AudioConnection          patchCord2(lfo, lfo_envelope2);
 AudioConnection          patchCord3(lfo, lfo_envelope1);
@@ -318,11 +316,9 @@ AudioConnection          patchCord188(env_mixer1, 0, mixer_left, 1);
 AudioConnection          patchCord189(env_mixer1, 0, mixer_right, 1);
 AudioConnection          patchCord190(mixer_left, flanger_left);
 AudioConnection          patchCord191(mixer_right, flanger_right);
-AudioConnection          patchCord192(flanger_left, 0, filter1, 0);
-AudioConnection          patchCord193(flanger_right, 0, filter2, 0);
-AudioConnection          patchCord194(filter1, 0, filter2, 0);
-AudioConnection          patchCord195(filter2, 0, filter3, 0);
-AudioConnection          patchCord196(filter2, 0, i2s1, 0);
-AudioConnection          patchCord197(filter3, 0, i2s1, 1);
+AudioConnection          patchCord192(flanger_left, 0, antialias_left, 0);
+AudioConnection          patchCord193(flanger_right, 0, antialias_right, 0);
+AudioConnection          patchCord194(antialias_left, 0, i2s1, 0);
+AudioConnection          patchCord195(antialias_right, 0, i2s1, 1);
 AudioControlSGTL5000     sgtl5000_1;     //xy=2005.2833251953125,919
 // GUItool: end automatically generated code
