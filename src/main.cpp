@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <MIDI.h>
 // #include "Audio.h"
 #include "architecture.h"
 #include "oscillator.h"
@@ -26,6 +27,34 @@
 
 #include <iostream>
 
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
+
+void initialize_oscillator() {
+  oscillator *o = oscillators,*end = oscillators + number_voices;
+  do {
+    o->hpf->frequency(100);
+    o->lpf->frequency(8000);
+    o->saw->begin(WAVEFORM_SAWTOOTH);
+    o->pulse_lfo->begin(WAVEFORM_PULSE);
+    o->sub->begin(WAVEFORM_PULSE); // sub!
+
+    //reduce clipping
+    o->osc_mixer->gain(0,0.25);
+    o->osc_mixer->gain(1,0.25);
+    o->osc_mixer->gain(2,0.25);
+    o->osc_mixer->gain(3,0.25);
+  } while (++o < end);
+}
+
+void initialize() {
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(note_on);
+  MIDI.setHandleNoteOn(note_off_wrapper);
+  sgtl5000_1.enable();
+  sgtl5000_1.volume(0.9);
+  lpf_envelope_dc.amplitude(1);
+}
+
 void setup() {
   declare_parameters();
   declare_buttons();
@@ -45,7 +74,6 @@ synth s;
 void loop() {
 
     // s.check_parameters();
-    test1();
 
 }  
 
