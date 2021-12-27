@@ -98,8 +98,6 @@ void update_lpf_mod (double value) {
         o->lpf_mod_mixer->gain(2, lpf_keyboard_gain);
     } while (++o < end);
     
-
-
 }
 
 // ENVELOPE
@@ -133,6 +131,11 @@ void update_envelope_release(double value) {
         o->lpf_envelope->release(value); //lpf envelope
         o->envelope->release(value);
     } while (++o < end);
+}
+
+// CHANNEL VOLUME
+void update_channel_volume (double value) {
+    //TODO
 }
 
 // FLANGER

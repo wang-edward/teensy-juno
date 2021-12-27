@@ -12,8 +12,8 @@
 #include "parameter/init_parameter.h"
 //control functions
 #include "parameter/scale_parameter.h"
-#include "button/update_button.h"
 #include "parameter/update_parameter.h"
+#include "button/update_button.h"
 //declare controls
 #include "button/declare_button.h"
 #include "parameter/declare_parameter.h"
@@ -27,10 +27,9 @@
 #include <iostream>
 
 void setup() {
-    declare_parameters();
-    declare_buttons();
-    Serial.begin(9600);
-
+  declare_parameters();
+  declare_buttons();
+  Serial.begin(9600);
 }
 
 void timer () {

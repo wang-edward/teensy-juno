@@ -26,7 +26,7 @@ void update_envelope_on(bool value) {
 }
 
 void update_flanger_on (bool value) {
-
+    update_flanger(true);
 }
 
 void update_velocity_on(bool value) {
