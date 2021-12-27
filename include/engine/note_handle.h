@@ -33,13 +33,13 @@ int8_t notes_delete(int8_t* notes, uint8_t note) {
 }
 
 bool notes_find (int8_t* notes, uint8_t note) {
-    int8_t *end = notes + number_voices;
-    do {
-        if (*notes == note) return true;
-    } while (++notes < end);
-    return false;
+  int8_t *end = notes + number_voices;
+  do {
+    if (*notes == note) return true;
+  } while (++notes < end);
+  return false;
 }
 
 float note_to_freq(float note) {
-    return pow(2,(note-69)/12.);
+  return pow(2,(note-69)/12.);
 }
