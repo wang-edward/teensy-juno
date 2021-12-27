@@ -10,7 +10,15 @@ class oscillator {
         
         AudioFilterStateVariable*     hpf;
         AudioFilterLadder*            lpf;
+        
+        AudioMixer4*                  lpf_mod_mixer;
+        AudioEffectEnvelope*          lpf_envelope;
+        AudioEffectEnvelope*          lfo_envelope;
+
         AudioEffectEnvelope*          envelope;
+        
+        AudioMixer4*                  pwm_mixer;
+
         
         int8_t  note;
         uint8_t velocity;

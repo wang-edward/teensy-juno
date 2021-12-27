@@ -1,3 +1,4 @@
+// LFO
 void update_lfo_rate(double value) {
     lfo.frequency(value);
 }
@@ -10,6 +11,7 @@ void update_osc_lfo_level(double value) {
     osc_lfo_amp.gain(value);
 }
 
+// OSCILLATORS
 void update_pulse_width(double value) {
     if (pwm_lfo_on.state == true) {
         pwm_mixer.gain(0,value); //set lfo pwm level
@@ -44,6 +46,7 @@ void update_noise_level (double value) {
     }
 }
 
+// HPF
 void update_hpf_frequency (double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
@@ -51,6 +54,7 @@ void update_hpf_frequency (double value) {
     } while (++o < end);
 }
 
+// LPF
 void update_lpf_frequency (double value) {
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
@@ -65,6 +69,26 @@ void update_lpf_resonance (double value) {
     } while (++o < end);
 }
 
+void update_lpf_mod (double value) {
+
+    double max_lpf_mod = log(20000/lpf_frequency.get_value()) / (lpf_octave_control * log(2));
+    double sum_lpf_levels = lpf_envelope_level.get_value() + lpf_lfo_level.get_value() + lpf_keyboard_level.get_value(); //TODO: MODWHEEL
+
+    double lpf_envelope_gain = lpf_envelope_level.get_value() / sum_lpf_levels * max_lpf_mod;
+    double lpf_lfo_gain = lpf_lfo_level.get_value() / sum_lpf_levels * max_lpf_mod;
+    double lpf_keyboard_gain = lpf_envelope_level.get_value() / sum_lpf_levels * max_lpf_mod;
+    
+    do {
+        oscillator *o = oscillators, *end = oscillators + number_voices;
+    } while (++o < end);
+    lpf_mod_mixer.gain(0, lpf_envelope_gain);
+    lpf_mod_mixer.gain(1, lpf_lfo_gain);
+    lpf_mod_mixer.gain(2, lpf_keyboard_gain);
+
+
+}
+
+// ENVELOPE
 void update_envelope_attack(double value) {
     lpf_envelope.attack(value); //lpf envelope
     oscillator *o = oscillators, *end = oscillators + number_voices;
@@ -97,6 +121,7 @@ void update_envelope_release(double value) {
     } while (++o < end);
 }
 
+// FLANGER
 void update_flanger (double value) {
     if (flanger_on.state) {
         AudioNoInterrupts();
