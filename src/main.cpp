@@ -27,15 +27,44 @@
 #include "engine/oscillator_control.h"
 #include "engine/midi_handle.h"
 
-#include <iostream>
+
+void initialize_oscillator();
+void initialize_midi();
+void initialize_engine();
+void initialize_lpf();
+void initialize_antialias();
+void initialize();
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
-void initialize_oscillator() {
+void setup() {
+
+  AudioMemory(50);
+  sgtl5000_1.enable();
+  sgtl5000_1.volume(0.9);
+  lpf_envelope_dc.amplitude(1);
+  Serial.begin(9600);
+
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.setHandleNoteOn(note_on);
+  MIDI.setHandleNoteOff(note_off_wrapper);
+
+
+  for (int i=0;i<4;i++) {
+    envelope_mixer0.gain(i,0.25); 
+    envelope_mixer1.gain(i,0.25);
+    mixer_left.gain(i,0.5);
+    mixer_right.gain(i,0.5);
+  }
+
+  antialias_left.frequency(20000.);
+  antialias_right.frequency(20000.);
+
   oscillator *o = oscillators,*end = oscillators + number_voices;
   do {
     o->hpf->frequency(100);
     o->lpf->frequency(8000);
+    o->lpf->octaveControl(lpf_octave_control);
     o->saw->begin(WAVEFORM_SAWTOOTH);
     o->pulse_lfo->begin(WAVEFORM_PULSE);
     o->sub->begin(WAVEFORM_PULSE); // sub!
@@ -46,53 +75,6 @@ void initialize_oscillator() {
     o->osc_mixer->gain(2,0.25);
     o->osc_mixer->gain(3,0.25);
   } while (++o < end);
-}
-
-void initialize_midi() {
-  MIDI.begin(MIDI_CHANNEL_OMNI);
-  MIDI.setHandleNoteOn(note_on);
-  MIDI.setHandleNoteOff(note_off_wrapper);
-}
-
-void initialize_engine() {
-  for (int i=0;i<4;i++) {
-    envelope_mixer0.gain(i,0.25); 
-    envelope_mixer1.gain(i,0.25);
-    mixer_left.gain(i,0.5);
-    mixer_right.gain(i,0.5);
-  }
-}
-
-void initialize_lpf() {
-  oscillator *o = oscillators, *end = oscillators + number_voices;
-  do {
-    o->lpf->octaveControl(lpf_octave_control);
-  } while (++o < end);
-}
-
-void initialize_antialias() {
-  antialias_left.frequency(20000.);
-  antialias_right.frequency(20000.);
-}
-
-void initialize() {
-  AudioMemory(50);
-  sgtl5000_1.enable();
-  sgtl5000_1.volume(0.9);
-  lpf_envelope_dc.amplitude(1);
-}
-
-void setup() {
-  initialize();
-  declare_parameters();
-  declare_buttons();
-  initialize_oscillator();
-  initialize_midi();
-  initialize_engine();
-  initialize_lpf();
-  initialize_antialias();
-
-  Serial.begin(9600);
 }
 
 void timer () {

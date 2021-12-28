@@ -9,7 +9,7 @@ class parameter {
 
         int mux_position; // which pin of the mux to read (0-15)
         int mux_address; // which mux to search in (0-2)
-        
+
     public:
         double (*scaling_function)(double); // function to convert raw value into useable
         void (*update_function)(double); // function to update synth engine with new parameter
@@ -24,6 +24,7 @@ class parameter {
             mux_address = n_mux_address;
             scaling_function = n_scaling_function;
             update_function = n_update_function;
+            initialize();
         };
 
         // parameter(int n_midi_control, int n_mux_address, int n_mux_position, std::function <double (double)> n_scaling_function, std::function<void(double)>n_update_function) {
@@ -40,10 +41,16 @@ class parameter {
         }
 
         double get_value() {
+            Serial.println("inside get_value");
             int temp = read();
+            Serial.print("temp is: "); Serial.println(temp);
+            Serial.print("old_position is: "); Serial.println(old_position);
             if (temp != old_position) {
+                Serial.println("temp != old_position");
                 old_position = position = temp;
+                Serial.println("before calculate");
                 calculate();
+                Serial.println("before update");
                 update();
             }
             return value;

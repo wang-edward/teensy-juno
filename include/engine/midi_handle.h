@@ -46,20 +46,23 @@ void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
 
     for (o = oscillators; o < end && !current_oscillator; ++o) {
         if (o->note < 0) {
-            current_oscillator = 0;
+            current_oscillator = o;
             break;
         }
     }
 
     if (current_oscillator == false && *notes_on != -1) {
-        Serial.println("inside_note_on");
+        Serial.println("current_oscillator == false && *notes_on != -1");
         current_oscillator = note_off(channel, *notes_on, velocity, true);
     }
     
-    if (current_oscillator == false) return;
-
+    if (current_oscillator == false) {
+        Serial.println("current_oscillator == false");
+        return;
+    }
+    Serial.println("after checks");
     oscillator_on(*current_oscillator, note, velocity);
-
+    Serial.println("after oscillator_on");
     // else //mono mode
     return;
 }

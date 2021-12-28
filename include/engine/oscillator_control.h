@@ -1,7 +1,12 @@
 void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
+    Serial.println("start of oscillator_on");
     //TODO: updatestate?
     float v = velocity_on.get_state() ? velocity/127. : 1;
+    Serial.println("before note_to_freq");
     float freq = note_to_freq(note);
+    Serial.println("before_get_value()");
+    Serial.println(channel_volume.get_value());
+    Serial.println("asd");
     float amp = v*channel_volume.get_value(); //* GAIN_OSC ? TODO
 
     Serial.println("osc_on_outside");
