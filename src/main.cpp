@@ -89,7 +89,6 @@ synth s;
 
 void loop() {
   MIDI.read();
-  
     // s.check_parameters();
 
 }  

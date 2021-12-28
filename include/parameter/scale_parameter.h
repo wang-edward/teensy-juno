@@ -63,6 +63,7 @@ double scale_lpf_keyboard_level (double value) {
 }
 
 double scale_channel_volume (double value) {
+    Serial.print("scale_channel_volume = "); Serial.println(value);
     return value;
 }
 

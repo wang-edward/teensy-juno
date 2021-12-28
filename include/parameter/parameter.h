@@ -57,7 +57,12 @@ class parameter {
         };
 
         void calculate() { //fix
+            Serial.println("inside calculate");
+            Serial.print("position: ");Serial.println(position);
+            Serial.print("scaled position: ");Serial.println(position/1023.);
+            Serial.print("returned value: "); Serial.println(scaling_function(position/1023.));
             value = scaling_function(position/1023.);
+            Serial.println("after calculate");
         }
 
         void update() {
