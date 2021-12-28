@@ -51,7 +51,7 @@ double scale_sum_lpf() {
 }
 
 double scale_lpf_envelope_level (double value) {
-    return (value) * 2;
+    return (value * 2);
 }
 
 double scale_lpf_lfo_level (double value) {

@@ -21,6 +21,7 @@ class button {
 
         void set_state(bool value) {
             state = value;
+            update_function(state);
         }
         
         button() {

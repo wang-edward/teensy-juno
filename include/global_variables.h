@@ -14,6 +14,7 @@ const int number_parameters = 22;
 const int number_voices = 8;
 const int number_buttons = 9;
 const int DELAY_LENGTH = 1;
+const double SYNTH_TUNING = 440.;
 
 oscillator oscillators[number_voices] = {
     { &pulse_lfo0, &saw0, &sub0, &noise0, &osc_mixer0, &hpf0, &lpf0, &lpf_mod_mixer0, &lpf_envelope0, &lfo_envelope0, &osc_lfo_amp0, &envelope0, &pwm_mixer0, -1, 0},

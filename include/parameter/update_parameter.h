@@ -83,13 +83,13 @@ void update_lpf_resonance (double value) {
 }
 
 void update_lpf_mod (double value) {
+    // USE RETURN_VALUE to avoid circular function calls
+    double max_lpf_mod = log(20000/lpf_frequency.return_value()) / (lpf_octave_control * log(2));
+    double sum_lpf_levels = lpf_envelope_level.return_value() + lpf_lfo_level.return_value() + lpf_keyboard_level.return_value(); //TODO: MODWHEEL
 
-    double max_lpf_mod = log(20000/lpf_frequency.get_value()) / (lpf_octave_control * log(2));
-    double sum_lpf_levels = lpf_envelope_level.get_value() + lpf_lfo_level.get_value() + lpf_keyboard_level.get_value(); //TODO: MODWHEEL
-
-    double lpf_envelope_gain = lpf_envelope_level.get_value() / sum_lpf_levels * max_lpf_mod;
-    double lpf_lfo_gain = lpf_lfo_level.get_value() / sum_lpf_levels * max_lpf_mod;
-    double lpf_keyboard_gain = lpf_envelope_level.get_value() / sum_lpf_levels * max_lpf_mod;
+    double lpf_envelope_gain = lpf_envelope_level.return_value() / sum_lpf_levels * max_lpf_mod;
+    double lpf_lfo_gain = lpf_lfo_level.return_value() / sum_lpf_levels * max_lpf_mod;
+    double lpf_keyboard_gain = lpf_envelope_level.return_value() / sum_lpf_levels * max_lpf_mod;
     
     oscillator *o = oscillators, *end = oscillators + number_voices;
     do {
@@ -165,7 +165,7 @@ void update_envelope_release(double value) {
 
 // CHANNEL VOLUME
 void update_channel_volume (double value) {
-    //TODO
+    //TODO update current oscillators that are pressed down
 }
 
 // FLANGER

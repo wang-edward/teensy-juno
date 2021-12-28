@@ -1,24 +1,24 @@
 void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
-    Serial.println("start of oscillator_on");
+    // Serial.println("start of oscillator_on");
     //TODO: updatestate?
     float v = velocity_on.get_state() ? velocity/127. : 1;
-    Serial.println("before note_to_freq");
+    
     float freq = note_to_freq(note);
-    Serial.println("before_get_value()");
-    Serial.println(channel_volume.get_value());
-    Serial.println("asd");
+    Serial.println(freq);
     float amp = v*channel_volume.get_value(); //* GAIN_OSC ? TODO
 
-    Serial.println("osc_on_outside");
+    // Serial.println("osc_on_outside");
 
     if (osc.note != note) {
-        Serial.println("osc on");
         notes_add(notes_on, note);
 
         // Envelope
         if(envelope_on.get_state() && !osc.velocity) {
+            Serial.println("ENVELOPE ON & NOTEON");
             osc.envelope->noteOn();
         }
+
+        Serial.println(lpf_envelope_level.get_value());
 
         // lpf envelope
         if (lpf_envelope_level.get_value() > 0) {
@@ -31,6 +31,7 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
 
         // oscs
         if (pulse_on.get_state()) {
+            Serial.println("pulseon and set to freq");
             osc.pulse_lfo->frequency(freq);
             osc.pulse_lfo->amplitude(amp);
         }
@@ -50,8 +51,8 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
         osc.velocity = velocity;
         osc.note = note;
     } else if (velocity > osc.velocity) {
-        //change amplitude to new level
-        //i think this has to do with aftertouch
+        // //change amplitude to new level
+        // //i think this has to do with aftertouch
         if (pulse_on.get_state()) osc.pulse_lfo->amplitude(amp);
         if (saw_on.get_state()) osc.saw->amplitude(amp);
         

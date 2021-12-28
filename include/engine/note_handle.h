@@ -41,5 +41,5 @@ bool notes_find (int8_t* notes, uint8_t note) {
 }
 
 float note_to_freq(float note) {
-  return pow(2,(note-69)/12.);
+  return SYNTH_TUNING * pow(2,(note-69)/12.);
 }

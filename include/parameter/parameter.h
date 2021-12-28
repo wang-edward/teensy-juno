@@ -38,29 +38,41 @@ class parameter {
             old_position = position = read();
         }
 
-        double get_value() {
-            Serial.println("inside get_value");
-            int temp = read();
-            Serial.print("temp is: "); Serial.println(temp);
-            Serial.print("old_position is: "); Serial.println(old_position);
-            if (temp != old_position) {
-                Serial.println("temp != old_position");
-                old_position = position = temp;
-                Serial.println("before calculate");
-                calculate();
-                Serial.println("before update");
-                update();
-            }
+        double return_value() {
             return value;
+        }
+
+        void set_value(double new_value) {
+            value = new_value;
+            update();
+        }
+
+        double get_value() {
+            // Serial.println("inside get_value");
+            int temp = read();
+            // Serial.print("temp is: "); Serial.println(temp);
+            // Serial.print("old_position is: "); Serial.println(old_position);
+            if (temp != old_position) {
+                // Serial.println("temp != old_position");
+                old_position = position = temp;
+                // Serial.println("before calculate");
+                calculate();
+                // Serial.println("before update");
+                // update();
+                // Serial.println("after update");
+            }
+            // Serial.println("before return");
+            return value;
+            // Serial.println("after return");
         };
 
         void calculate() { //fix
-            Serial.println("inside calculate");
-            Serial.print("position: ");Serial.println(position);
-            Serial.print("scaled position: ");Serial.println(position/1023.);
-            Serial.print("returned value: "); Serial.println(scaling_function(position/1023.));
+            // Serial.println("inside calculate");
+            // Serial.print("position: ");Serial.println(position);
+            // Serial.print("scaled position: ");Serial.println(position/1023.);
+            // Serial.print("returned value: "); Serial.println(scaling_function(position/1023.));
             value = scaling_function(position/1023.);
-            Serial.println("after calculate");
+            // Serial.println("after calculate");
         }
 
         void update() {
