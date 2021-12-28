@@ -1,5 +1,3 @@
-#include <functional>
-
 class parameter {
     private:
         int midi_control; // midi control number (0-127);

@@ -39,6 +39,9 @@ MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
 void setup() {
 
+  declare_parameters(); //VERY IMPORTANT 
+  declare_buttons(); // VERY IMPORTANT
+
   AudioMemory(50);
   sgtl5000_1.enable();
   sgtl5000_1.volume(0.9);
@@ -90,7 +93,6 @@ synth s;
 void loop() {
   MIDI.read();
     // s.check_parameters();
-
 }  
 
 static button test[9] = {
