@@ -18,6 +18,10 @@ class button {
         long time_between;
     public:
         void (*update_function)(bool);
+
+        void set_state(bool value) {
+            state = value;
+        }
         
         button() {
             midi_control = -1;

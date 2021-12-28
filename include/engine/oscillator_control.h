@@ -4,7 +4,10 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
     float freq = note_to_freq(note);
     float amp = v*channel_volume.get_value(); //* GAIN_OSC ? TODO
 
+    Serial.println("osc_on_outside");
+
     if (osc.note != note) {
+        Serial.println("osc on");
         notes_add(notes_on, note);
 
         // Envelope

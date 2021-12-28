@@ -1,5 +1,7 @@
 oscillator* note_off (uint8_t channel, uint8_t note, uint8_t velocity, bool ignore_sustain) {
 
+    Serial.println("note_off");
+
     // if(!omni_on && channel != 1) return 0; //TODO:
 
     int8_t last_note = notes_delete(notes_pressed, note);
@@ -32,6 +34,7 @@ oscillator* note_off (uint8_t channel, uint8_t note, uint8_t velocity, bool igno
 }
 
 void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
+    Serial.println("note_on");
     notes_add(notes_pressed, note);
     oscillator *o = oscillators;
     // if (portamento_on)
@@ -49,6 +52,7 @@ void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
     }
 
     if (current_oscillator == false && *notes_on != -1) {
+        Serial.println("inside_note_on");
         current_oscillator = note_off(channel, *notes_on, velocity, true);
     }
     
@@ -61,5 +65,6 @@ void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
 }
 
 void note_off_wrapper(uint8_t channel, uint8_t note, uint8_t velocity) {
+    Serial.println("note_off_wrapper");
     note_off(channel, note, velocity, false);
 }
