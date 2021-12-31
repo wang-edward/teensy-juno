@@ -1,0 +1,35 @@
+note_on
+inside get_value    
+temp is: 279        
+old_position is: 0  
+temp != old_position
+before calculate    
+inside calculate
+position: 279
+scaled position: 0.27
+returned value: scale_channel_volume = 0.27
+0.27
+scale_channel_volume = 0.27
+after calculate
+before update
+after update
+before return
+0.27
+note_off_wrapper
+note_off
+
+
+
+BETTER WAY TO DO LPF MOD
+
+velocity_on
+channel_volume
+lpf_envelope_level
+lpf_lfo_level
+sub_level
+noise_level
+
+
+pulse_on
+saw_on
+envelope_on
