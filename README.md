@@ -23,4 +23,4 @@ A Teensy 3.x/4.x based polyphonic synthesizer, modelled after the Juno-106
   - based on (www.researchgate.net/publication/220386519_Oscillator_and_Filter_Algorithms_for_Virtual_Analog_Synthesis)
 - filter or regular overdrive
 ## Notes
-don't buy this pcb right now (Dec 2021), there are some errors with clearances lol
+don't buy this pcb right now (Feb 2022), there are some errors with clearances lol
