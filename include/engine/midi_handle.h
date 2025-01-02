@@ -1,8 +1,8 @@
-oscillator* note_off (uint8_t channel, uint8_t note, uint8_t velocity, bool ignore_sustain) {
+oscillator *note_off(uint8_t channel, uint8_t note, uint8_t velocity,
+                     bool ignore_sustain) {
     Serial.println("note_off");
     int8_t last_note = notes_delete(notes_pressed, note);
     oscillator *o = oscillators;
-
 
     oscillator *end = oscillators + number_voices;
     do {
@@ -10,12 +10,13 @@ oscillator* note_off (uint8_t channel, uint8_t note, uint8_t velocity, bool igno
             break;
         }
     } while (++o < end);
-    if (o == end) return 0;
+    if (o == end)
+        return 0;
     oscillator_off(*o);
     return o;
 }
 
-void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
+void note_on(uint8_t channel, uint8_t note, uint8_t velocity) {
     Serial.println("note_on");
     notes_add(notes_pressed, note);
     oscillator *o = oscillators;
@@ -29,10 +30,11 @@ void note_on (uint8_t channel, uint8_t note, uint8_t velocity) {
     }
 
     if (current_oscillator == false && *notes_on != -1) {
-        // Serial.println("current_oscillator == false && *notes_on != -1");
+        // Serial.println("current_oscillator == false && *notes_on !=
+        // -1");
         current_oscillator = note_off(channel, *notes_on, velocity, true);
     }
-    
+
     if (current_oscillator == false) {
         // Serial.println("current_oscillator == false");
         return;

@@ -1,9 +1,9 @@
 void update_pulse_on(bool value) {
-    //update note handling to catch notes depressed before update
+    // update note handling to catch notes depressed before update
 }
 
 void update_saw_on(bool value) {
-    //update note handling to catch notes depressed before update
+    // update note handling to catch notes depressed before update
 }
 
 void update_pwm_lfo_on(bool value) {
@@ -33,21 +33,15 @@ void update_envelope_on(bool value) {
     }
 }
 
-void update_flanger_on (bool value) {
-    update_flanger(true);
-}
+void update_flanger_on(bool value) { update_flanger(true); }
 
 void update_velocity_on(bool value) {
-    //update note handling to catch notes depressed before update
+    // update note handling to catch notes depressed before update
 }
 
-void update_write(bool value) {
+void update_write(bool value) {}
 
-}
-
-void update_reset(bool value) {
-
-}
+void update_reset(bool value) {}
 
 // button envelope_on;
 // button flanger_on;
