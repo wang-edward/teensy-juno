@@ -1,26 +1,25 @@
 #include <Audio.h>
 class oscillator {
-    public:
-        AudioSynthWaveformModulated*  pulse_lfo;
-        AudioSynthWaveformModulated*  saw;
-        AudioSynthWaveformModulated*  sub;
-        AudioSynthNoiseWhite*         noise;
+  public:
+    AudioSynthWaveformModulated *pulse_lfo;
+    AudioSynthWaveformModulated *saw;
+    AudioSynthWaveformModulated *sub;
+    AudioSynthNoiseWhite *noise;
 
-        AudioMixer4*                  osc_mixer;
-        
-        AudioFilterStateVariable*     hpf;
-        AudioFilterLadder*            lpf;
+    AudioMixer4 *osc_mixer;
 
-        AudioMixer4*                  lpf_mod_mixer;
-        AudioEffectEnvelope*          lpf_envelope;
-        AudioEffectEnvelope*          lfo_envelope;
-        AudioAmplifier*               osc_lfo_amp;
+    AudioFilterStateVariable *hpf;
+    AudioFilterLadder *lpf;
 
-        AudioEffectEnvelope*          envelope;
-        
-        AudioMixer4*                  pwm_mixer;
+    AudioMixer4 *lpf_mod_mixer;
+    AudioEffectEnvelope *lpf_envelope;
+    AudioEffectEnvelope *lfo_envelope;
+    AudioAmplifier *osc_lfo_amp;
 
-        
-        int8_t  note;
-        uint8_t velocity;
+    AudioEffectEnvelope *envelope;
+
+    AudioMixer4 *pwm_mixer;
+
+    int8_t note;
+    uint8_t velocity;
 };

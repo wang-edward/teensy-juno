@@ -1,11 +1,11 @@
-void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
+void oscillator_on(oscillator &osc, int8_t note, uint8_t velocity) {
     // Serial.println("start of oscillator_on");
-    //TODO: updatestate?
-    float v = velocity_on.get_state() ? velocity/127. : 1;
-    
+    // TODO: updatestate?
+    float v = velocity_on.get_state() ? velocity / 127. : 1;
+
     float freq = note_to_freq(note);
     Serial.println(freq);
-    float amp = v*channel_volume.get_value(); //* GAIN_OSC ? TODO
+    float amp = v * channel_volume.get_value(); //* GAIN_OSC ? TODO
 
     // Serial.println("osc_on_outside");
 
@@ -13,7 +13,7 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
         notes_add(notes_on, note);
 
         // Envelope
-        if(envelope_on.get_state() && !osc.velocity) {
+        if (envelope_on.get_state() && !osc.velocity) {
             Serial.println("ENVELOPE ON & NOTEON");
             osc.envelope->noteOn();
         }
@@ -40,11 +40,11 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
             osc.saw->amplitude(amp);
         }
         if (sub_level.get_value() > 0) {
-            osc.sub->frequency(freq/2);
+            osc.sub->frequency(freq / 2);
             osc.sub->amplitude(amp * sub_level.get_value());
         }
         if (noise_level.get_value() > 0) {
-            osc.sub->frequency(freq/2);
+            osc.sub->frequency(freq / 2);
             osc.sub->amplitude(amp * sub_level.get_value());
         }
 
@@ -53,22 +53,27 @@ void oscillator_on(oscillator& osc, int8_t note, uint8_t velocity) {
     } else if (velocity > osc.velocity) {
         // //change amplitude to new level
         // //i think this has to do with aftertouch
-        if (pulse_on.get_state()) osc.pulse_lfo->amplitude(amp);
-        if (saw_on.get_state()) osc.saw->amplitude(amp);
-        
+        if (pulse_on.get_state())
+            osc.pulse_lfo->amplitude(amp);
+        if (saw_on.get_state())
+            osc.saw->amplitude(amp);
+
         double temp_sub_level = sub_level.get_value();
         double temp_noise_level = noise_level.get_value();
-        if (temp_sub_level>0) osc.sub->amplitude(amp * temp_sub_level);
-        if (temp_noise_level>0) osc.noise->amplitude(amp * temp_noise_level);
+        if (temp_sub_level > 0)
+            osc.sub->amplitude(amp * temp_sub_level);
+        if (temp_noise_level > 0)
+            osc.noise->amplitude(amp * temp_noise_level);
         osc.velocity = velocity;
     }
 }
 
-void oscillator_off (oscillator& osc) {
+void oscillator_off(oscillator &osc) {
     if (envelope_on.get_state()) {
         osc.envelope->noteOff();
     }
-    osc.lpf_envelope->noteOff(); osc.lfo_envelope->noteOff();
+    osc.lpf_envelope->noteOff();
+    osc.lfo_envelope->noteOff();
 
     if (pulse_on.get_state() == false) {
         osc.pulse_lfo->amplitude(0);
@@ -89,14 +94,14 @@ void oscillator_off (oscillator& osc) {
 
 void all_off() {
     oscillator *o = oscillators, *end = oscillators + number_voices;
-  do {
-    oscillator_off(*o);
-    o->pulse_lfo->amplitude(0);
-    o->saw->amplitude(0);
-    o->noise->amplitude(0);
-    o->envelope->noteOff();
-    o->lpf_envelope->noteOff();
-    //TODO: LFO ENVELOPE
-  } while(++o < end);
-  notes_reset(notes_on);
+    do {
+        oscillator_off(*o);
+        o->pulse_lfo->amplitude(0);
+        o->saw->amplitude(0);
+        o->noise->amplitude(0);
+        o->envelope->noteOff();
+        o->lpf_envelope->noteOff();
+        // TODO: LFO ENVELOPE
+    } while (++o < end);
+    notes_reset(notes_on);
 }
