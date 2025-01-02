@@ -1,18 +1,5 @@
 #include "include/button.h"
 #include <assert.h>
-Button button_create(int midi_control, int mux_address, int mux_position,
-             int led_address, void (*update_function)(bool)) {
-    Button b{
-        .update_function = update_function,
-        .midi_control = midi_control,
-        .mux_address = mux_address,
-        .mux_position = mux_position,
-        .led_address = led_address,
-        .state = false,
-    };
-    pinMode(led_address, OUTPUT); // set led pin as out
-    return b;
-}
 
 // TODO is this necessary?
 void button_set_state(Button *b, bool value) {

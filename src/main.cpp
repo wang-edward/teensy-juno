@@ -32,6 +32,7 @@
 #include "button.h"
 #include "button_update.h"
 
+constexpr int NUM_BUTTONS = 9;
 Button buttons[] = {
     {
         .update_function = update_pulse_on,
@@ -98,12 +99,14 @@ Button buttons[] = {
     },
 }
 
-
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
 void setup() {
+    for (int i = 0; i < NUM_BUTTONS; i++) {
+        pinMode(buttons[i].led_address, OUTPUT);
+    }
+
     declare_parameters(); // VERY IMPORTANT
-    declare_buttons();    // VERY IMPORTANT
 
     Serial.begin(115200);
     AudioMemory(50);
