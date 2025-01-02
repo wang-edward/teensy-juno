@@ -7,8 +7,8 @@ struct Button {
     void (*update_function)(bool);
 
     int midi_control; // midi control number (0-127);
-    int mux_position; // which pin of the mux to read (0-15)
     int mux_address;  // which mux to search in (0-2)
+    int mux_position; // which pin of the mux to read (0-15)
     int led_address;
 
     uint16_t start_state = 0;
