@@ -6,11 +6,9 @@
 #include "oscillator.h"
 
 // classes
-#include "button/button.h"
 #include "parameter/parameter.h"
 
 // init controls
-#include "button/init_button.h"
 #include "parameter/init_parameter.h"
 
 // control functions
@@ -29,6 +27,77 @@
 #include "engine/midi_handle.h"
 #include "engine/note_handle.h"
 #include "engine/oscillator_control.h"
+
+// new
+#include "button.h"
+#include "button_update.h"
+
+Button buttons[] = {
+    {
+        .update_function = update_pulse_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 7,
+        .led_address = 33
+    },
+    {
+        .update_function = update_saw_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 6,
+        .led_address = 34
+    },
+    {
+        .update_function = update_pwm_lfo_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 8,
+        .led_address = 35
+    },
+    {
+        .update_function = update_envelope_polarity,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 5,
+        .led_address = 36
+    },
+    {
+        .update_function = update_envelope_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 4,
+        .led_address = 37
+    },
+    {
+        .update_function = update_flanger_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 3,
+        .led_address = 38
+    },
+    {
+        .update_function = update_velocity_on,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 2,
+        .led_address = 39
+    },
+    {
+        .update_function = update_write,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 1,
+        .led_address = 40
+    },
+    {
+        .update_function = update_reset,
+        .midi_control = 0,
+        .mux_address= 2,
+        .mux_position = 0,
+        .led_address = 41
+    },
+}
+
 
 MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI);
 
