@@ -10,9 +10,5 @@ struct Button {
     bool state;
 };
 
-Button button_create(
-    int midi_control, int mux_address, int mux_position,
-    int led_address, void (*update_function)(bool));
-void button_set_state(Button *b, bool value);
 void button_update_led(Button *b);
-void button_read(Button *b);
+bool button_read(Button *b);

@@ -173,4 +173,13 @@ void setup() {
 void loop() {
     MIDI.read();
     s.check_parameters();
+    for (int i = 0; i < NUM_BUTTONS; i++) {
+        Button *b = &buttons[i];
+        bool curr = button_read(b);
+        if (curr != b->state) {
+            button_update_led(b);
+            b->update_function(curr);
+            b->state = curr;
+        }
+    }
 }
